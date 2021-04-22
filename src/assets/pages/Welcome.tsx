@@ -1,34 +1,58 @@
 import React, {useState} from 'react'
-import {SafeAreaView, Text,Image, TouchableOpacity, StyleSheet} from 'react-native'
+import {SafeAreaView,
+    Text,
+    Image,
+    TouchableOpacity,
+    StyleSheet,
+    Dimensions,
+    View,
+} from 'react-native'
 import colors from '../../../assets/colors';
-import {Button} from '../components/Button'
 
 import wateringImg from '../../../assets/watering.png';
 
-export function Welcome (){
-    const [visible, setVisible] = useState(true);
+import {Feather} from '@expo/vector-icons'
 
-    function handleVisibility(){
-        setVisible(true)
+import color from '../../../styles/colors'
+import fonts from '../../../styles/fonts'
+import { UserIdentification } from './UserIdentification';
+
+export function Welcome (){
+
+    const navigation = UserIdentification();
+
+    function handleStart(){
+        navigation.navigate('UserIdentification')
     }
+
     return(
 
         <SafeAreaView style={styles.container} >
+
+            <View style={styles.wrapper} >
+
             <Text style={styles.title}>
             Gerencie {"\n"}
-             suas plantas {"\n"}
-              de forma fácil
+            suas plantas de {"\n"}
+            forma fácil
             </Text>
 
-            {
-                visible &&
-                <Image source={wateringImg} style={styles.image} />
-            }
+                <Image 
+                    source={wateringImg} style={styles.image}  resizeMode= 'contain'
+                />
 
             <Text style={styles.subtitle}>Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você sempre que precisar.</Text>
         
-            <Button title='>' />
-            
+            <TouchableOpacity 
+            style={styles.button} 
+            activeOpacity={0.7}
+            onPress={handleStart}
+            >
+                <Text style={styles.buttonIcon}>
+                    <Feather name='chevron-right' style={styles.buttonIcon} />
+                </Text>
+            </TouchableOpacity>
+            </View>
         </SafeAreaView>
 
     )
@@ -37,24 +61,43 @@ export function Welcome (){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    wrapper:{
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around',
+        paddingHorizontal: 20,
     },
     title: {
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: 'bold',
         textAlign:'center',
         color: colors.heading,
-        marginTop: 38
+        marginTop: 38,
+        fontFamily: fonts.heading,
+        lineHeight: 34
     },
     subtitle: {
         textAlign: 'center',
         fontSize: 18,
         paddingHorizontal: 20,
-        color: colors.heading
+        color: colors.heading,
+        fontFamily: fonts.text
     },
     image:{
-        width: 292,
-        height: 284
+        height: Dimensions.get('window').width * 0.7
+    },
+    button: {
+        backgroundColor: colors.green,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 16,
+        marginRight: 10,
+        height: 56,
+        width: 56
+    },
+    buttonIcon:{
+       color: colors.white,
+       fontSize: 24, 
     }
 })
