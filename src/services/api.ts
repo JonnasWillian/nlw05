@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: '', /* Procure o IP da sua máquina e coloque: 
-        http://(IP da máquina)
-     */
-
+  baseURL: 'https://my-json-server.typicode.com/birobirobiro/nlw-05-plantmanager'
+  /*
+      https://my-json-server.typicode.com/birobirobiro/nlw-05-plantmanager
+  */
 });
 
 export default api;
